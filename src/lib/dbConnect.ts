@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
-
+import dotenv from "dotenv";
+// dotenv.config();
+// dotenv.config({
+//   path:'./src/.env'
+// })
 type ConnectionObject = {
   isConnected?: number;
 };
@@ -13,14 +17,18 @@ async function dbConnect(): Promise<void> {
   }
 
   try {
-    const db = await mongoose.connect("mongodb+srv://abhishekagarwal151:abhi123@cluster0.vca6enf.mongodb.net/mystery-message" || "", {})
-    connection.isConnected=db.connections[0].readyState
-    console.log("DB connected Successfully")
+    const db = await mongoose.connect(
+      `mongodb+srv://user:user@cluster0.vca6enf.mongodb.net/mystery-message` ||
+        "",
+      {}
+    );
+    connection.isConnected = db.connections[0].readyState;
+    console.log("DB connected Successfully");
 
-    console.log(db.connections)
+    console.log(db.connections);
   } catch (error) {
-    console.log("DB conection failed");
-    process.exit(1)
+    console.log("DB connection failed", error);
+    process.exit(1);
   }
 }
 
